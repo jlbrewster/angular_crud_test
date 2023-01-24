@@ -1,0 +1,28 @@
+<!-- <p>product-list works!</p> -->
+<!-- INSTRUCTIONS:
+    - Name, color type, cost
+    - 2 buttons:
+        -- EDIT (route to /product-detail/{sku})
+        -- DELETE (delete table entry)
+    - Add filter by color
+    - 10 Products per page
+ -->
+ <div id="product-list">
+    <ul class="products-nav">
+    </ul>
+    <ul class="product-list">
+        <li *ngFor="let product of products$ | async" >
+            <span>{{product.name}}</span><br>
+            <span>{{product.color}}</span><br>
+            <span>{{product.type}}</span><br>
+            <span>{{product.price}}</span><br>
+            <a routerLink="/product-detail/{{product.sku}}">
+                Edit
+              </a>&nbsp;|&nbsp;
+              <a (onClick) = "deleteProduct(product)")>
+                  Delete
+                </a>
+          </li>
+    </ul>
+  </div>
+  
