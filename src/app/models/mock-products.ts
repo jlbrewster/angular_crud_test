@@ -1,6 +1,6 @@
-import { Product } from './product'
+import { Product } from './Product'
 
-export const mockProducts: Product[] = [
+export const MockProducts: Product[] = [
         {
             'id': '123897917321239',
             'sku': 'nkl-2314',
