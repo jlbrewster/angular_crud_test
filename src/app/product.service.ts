@@ -15,7 +15,6 @@ export class ProductService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  // products: Product[] = [];
   constructor(
     private http: HttpClient
   ) { }
