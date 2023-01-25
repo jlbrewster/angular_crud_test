@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
-
+import { Observable } from 'rxjs';
 import { Product } from '../models/Product';
 import { ProductService } from '../product.service';
 
@@ -18,9 +17,9 @@ export class ProductListComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    // this.products$ = of(this.mockProducts);
     this.getProductList();
   }
+
   getProductList(): void {
     this.productService.getProducts().subscribe((MockProducts: Product[]) => this.mockProducts = MockProducts)
   }
@@ -28,6 +27,7 @@ export class ProductListComponent implements OnInit {
   deleteProduct(mockProduct: Product): void {
     this.mockProducts = this.mockProducts.filter(p => p !== mockProduct);
     this.productService.deleteProduct(mockProduct.sku).subscribe();
+    // TODO: refine this / clarify if save to backend?
   }
 
 

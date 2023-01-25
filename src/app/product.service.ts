@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { never, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Product } from './models/Product';
 import { MockProducts } from './models/Mock-products';
@@ -31,7 +31,6 @@ export class ProductService {
     //     tap(_ => this.log('fetched products')),
     //     catchError(this.handleError<Product[]>('getProducts', []))
     //   );
-
   }
   
   log(arg0: string): void {
@@ -41,6 +40,22 @@ export class ProductService {
     throw new Error('Method not implemented.');
   }
 
+  getProductBySku(sku: string): Observable<Product> {
+    const url = `${this.productUrl}/${sku}`;
+    return this.http.get<Product>(url).pipe(
+      tap(_ => this.log(`fetched product sku=${sku}`)),
+      catchError(this.handleError(`getProduct sku=${sku}`, []))
+    );
+  }
+
+  updateProduct(product: Product): Observable<any> {
+    return this.http.put(this.productUrl, product, this.httpOptions).pipe(
+      tap(_ => this.log(`updated product sku=${product.sku}`)),
+      catchError(this.handleError<any>('updateProduct', []))
+    );
+  }
+
+  // I believe this to be superfluous to the one in the compoment
   deleteProduct(sku: string): Observable<Product> {
     // const url = `${this.prodcutsUrl}/${id}`;
     // return this.http.delete<Hero>(url, this.httpOptions).pipe(
