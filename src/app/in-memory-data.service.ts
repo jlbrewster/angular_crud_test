@@ -6,6 +6,7 @@ import { Product } from './models/Product';
 @Injectable({
   providedIn: 'root',
 })
+// was  this the reason why it didn't work?
 // export class InMemoryDataService implements InMemoryDbService {
 //   createDb() {
 //     const _mockProducts: Product[] = MockProducts
@@ -208,4 +209,14 @@ export class InMemoryDataService implements InMemoryDbService {
 ]
     return {mockProducts};
   }
+
+  // Overrides the genId method to ensure that a hero always has an id.
+  // If the heroes array is empty,
+  // the method below returns the initial number (11).
+  // if the heroes array is not empty, the method below returns the highest
+  // hero id + 1.
+//   genId(mockProduct: Product[]): number {
+//     return mockProduct.length > 0 ? Math.max(...MockProducts.map(product => product.)) + 1 : 11;
+//   }
+
 }

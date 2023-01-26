@@ -43,6 +43,7 @@ export class ProductService {
   getProductBySku(sku: string): Observable<Product> {
     const url = `${this.productUrl}/${sku}`;
     return this.http.get<Product>(url).pipe(
+      tap(result => console.log(result))
       // tap(_ => this.log(`fetched product sku=${sku}`)),
       // catchError(this.handleError(`getProduct sku=${sku}`, []))
     );

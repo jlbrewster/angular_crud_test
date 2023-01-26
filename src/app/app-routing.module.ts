@@ -8,8 +8,6 @@ const routes: Routes = [
   // { path: 'dashboard', component: DashboardComponent },
   { path: 'product-detail/:sku', component: ProductDetailComponent },
   { path: 'products', component: ProductListComponent },
-  { path: '_mockProducts', component: ProductListComponent },
-  { path: '_mockProducts/:sku', component: ProductListComponent }
 ];
 
 @NgModule({
