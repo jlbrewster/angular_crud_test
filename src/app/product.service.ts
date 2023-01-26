@@ -10,10 +10,8 @@ import { HttpClient, HttpHeaders, HttpStatusCode } from '@angular/common/http';
 })
 export class ProductService {
 
-  productUrl: string = 'api/_mockProducts';
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+  productUrl: string = 'api/mockProducts';
+  httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
   constructor(
     private http: HttpClient
@@ -21,37 +19,39 @@ export class ProductService {
   
   /** GET products from the mock server */
   getProducts(): Observable<Product[]> {
-    const _mockProducts = of(
-      MockProducts
-    );
-    _mockProducts.subscribe(res => console.log(res));
-    return _mockProducts;
-    // return this.http.get<Product[]>(this.productUrl)
-    //   .pipe(
-    //     tap(_ => this.log('fetched products')),
-    //     catchError(this.handleError<Product[]>('getProducts', []))
-    //   );
+    // :: this works for display ::
+    // const _mockProducts = of(
+    //   MockProducts
+    // );
+    // _mockProducts.subscribe(res => console.log(res));
+    // return _mockProducts;
+    return this.http.get<Product[]>(this.productUrl)
+      .pipe(
+        tap(result => console.log(result))
+        // tap(_mockProducts => this.log('fetched products')),
+        // catchError(this.handleError<Product[]>('getProducts', []))
+      );
   }
   
-  log(arg0: string): void {
-    throw new Error('Method not implemented.');
-  }
-  handleError<T>(arg0: string, arg1: never[]): (err: any, caught: Observable<unknown>) => import("rxjs").ObservableInput<any> {
-    throw new Error('Method not implemented.');
-  }
+  // log(arg0: string): void {
+  //   throw new Error('Method not implemented.');
+  // }
+  // handleError<T>(arg0: string, arg1: never[]): (err: any, caught: Observable<unknown>) => import("rxjs").ObservableInput<any> {
+  //   throw new Error('Method not implemented.');
+  // }
 
   getProductBySku(sku: string): Observable<Product> {
     const url = `${this.productUrl}/${sku}`;
     return this.http.get<Product>(url).pipe(
-      tap(_ => this.log(`fetched product sku=${sku}`)),
-      catchError(this.handleError(`getProduct sku=${sku}`, []))
+      // tap(_ => this.log(`fetched product sku=${sku}`)),
+      // catchError(this.handleError(`getProduct sku=${sku}`, []))
     );
   }
 
   updateProduct(product: Product): Observable<any> {
     return this.http.put(this.productUrl, product, this.httpOptions).pipe(
-      tap(_ => this.log(`updated product sku=${product.sku}`)),
-      catchError(this.handleError<any>('updateProduct', []))
+      // tap(_ => this.log(`updated product sku=${product.sku}`)),
+      // catchError(this.handleError<any>('updateProduct', []))
     );
   }
 
@@ -64,6 +64,27 @@ export class ProductService {
     // );
     return of();
   }
+ /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   *
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      // this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+
 
 } // end CLASS
 

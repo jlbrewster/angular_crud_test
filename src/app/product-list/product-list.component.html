@@ -16,12 +16,12 @@
             <span>{{product.color}}</span><br>
             <span>{{product.type}}</span><br>
             <span>{{product.price}}</span><br>
-            <a routerLink="/product-detail/{{product.sku}}">
+            <button routerLink="/product-detail/{{product.sku}}">
                 Edit
-              </a>&nbsp;|&nbsp;
-              <a (click) = "deleteProduct(product)">
+            </button>&nbsp;|&nbsp;
+              <button (click) = "deleteProduct(product)">
                   Delete
-                </a>
+              </button>
           </li>
     </ul>
   </div>

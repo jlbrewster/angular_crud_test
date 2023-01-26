@@ -24,9 +24,11 @@ export class ProductDetailComponent {
   }
 
   getProduct(): void {
-    const id = parseInt(this.route.snapshot.paramMap.get('sku')!, 10);
-    this.productService.getProductBySku(this.product.sku)
+    const sku = this.route.snapshot.paramMap.get('sku')!;
+    console.log("sku: ", sku);
+    this.productService.getProductBySku(sku)
       .subscribe(product => this.product = product);
+      console.log("This product: ", this.product);
   }
 
   goBack(): void {
